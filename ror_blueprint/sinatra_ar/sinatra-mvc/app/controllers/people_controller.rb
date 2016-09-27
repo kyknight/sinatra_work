@@ -17,7 +17,7 @@ post '/people' do
     birthdate = Date.strptime(params[:birthdate], "%m%d%Y")
   end
   
-  person = Person.create(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
+  @person = Person.create(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
   redirect "/people/#{person.id}"
 end
 
@@ -27,17 +27,17 @@ get '/people/:id/edit' do
 end
 
 put '/people/:id' do
-  person = Person.find(params[:id])
-  person.first_name = params[:first_name]
-  person.last_name = params[:last_name]
-  person.birthdate = params[:birthdate]
-  person.save
+  @person = Person.find(params[:id])
+  @person.first_name = params[:first_name]
+  @person.last_name = params[:last_name]
+  @person.birthdate = params[:birthdate]
+  @person.save
   redirect "/people/#{@person.id}"
 end
 
 delete '/people/:id' do
-  person = Person.find(params[:id])
-  person.delete
+  @person = Person.find(params[:id])
+  @person.delete
   redirect "/people"
 end
 
