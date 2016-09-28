@@ -18,7 +18,7 @@ post '/people' do
   end
   
   @person = Person.create(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
-  redirect "/people/#{person.id}"
+  redirect "/people/#{@person.id}"
 end
 
 get '/people/:id/edit' do
@@ -42,7 +42,7 @@ delete '/people/:id' do
 end
 
 get '/people/:id' do
-  @new_person = Person.find(params[:id])
+  @person = Person.find(params[:id])
   birth_path_num = Person.get_birth_path_num(@person.birthdate.strftime("%m%d%Y"))
   @message = Person.get_message(birth_path_num)  
   erb :"/people/show"
